@@ -115,10 +115,12 @@ Another example of lexical scoping for an arrow function
 // `getTruthiness` method will return a new function that when invoked
 // will return the truthiness of the object based on its `val1` and
 // `val2` properties.  The returned arrow function will have a this
-// based on lexical scope of when and where it was defined.  So in
-// this example, since the arrow function is inside regular
-// function that has a `this` which is the `obj` object,
-// then the `this` of the arrow function is `obj`.
+// based on lexical scope of when and where it was defined
+// (not when executed in runtim).  So in this example, 
+// since the arrow function is inside regular 
+// function that has a `this` which is the
+// `obj` object, then the `this` of the 
+// arrow function is `obj`.
 
 const obj = {
     val1: true,
