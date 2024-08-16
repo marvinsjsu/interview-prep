@@ -68,6 +68,8 @@ the same prop name; we can get around this by:
 
 - can be hard to understand how HOCs work and might not be as readable
 
+- replaced by `Render-Props` pattern, which can be replaced by `hooks` (details below)
+
 - with a combination of `hooks` and `Context API`, we may not really need to use
 this as often outside of maybe manipulating the display or presentation of a 
 component
