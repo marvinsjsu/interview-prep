@@ -14,6 +14,6 @@ that allows us to take advantage of the pattern's benefits.
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-##### This is built with the help of (create-react-app)[https://create-react-app.dev/]
+##### This is built with the help of [create-react-app](https://create-react-app.dev/)
 - thank you to the team who built React and `create-react-app`
 
