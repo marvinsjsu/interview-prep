@@ -24,3 +24,5 @@ console.log({ johnLee, mattFengthong });
 
 console.log(johnLee.getFullName());
 console.log(mattFengthong.getFullName());
+
+console.log(mattFengthong.__proto__);

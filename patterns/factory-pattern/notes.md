@@ -16,7 +16,7 @@ based on a class and then we will be making use of the `prototype`
 
 - Note how `johnLee` has the method `getFullName`, while `mattFengthong` does
 not.  It's because the latter will use `User` prototype to get the
-`getFullName` method
+`getFullName` method.  The prototype in the object is `__proto__`.
 
 ```
 {
