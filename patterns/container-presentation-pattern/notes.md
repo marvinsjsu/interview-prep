@@ -14,29 +14,30 @@ there are components dedicated to or concerned with how to display data
 
 ```
 /src
-- components
---- pages
------- home
+- hocs/
+- components/
+--- pages/
+------ home/
 --------- home-component-1.component.js
 --------- home-component-2.component.js
------- admin
+------ admin/
 --------- admin-component-1.component.js
 --------- admin-component-2.component.js
------- portfolio
+------ portfolio/
 --------- portfolio-component-1.component.js
------- common
+------ common/
 ---------- left-nav-component-1.component.js
 ---------- right-nav-component-1.component.js
-- containers
+- containers/
 --- analytics.containers.js
 --- user-settings.containers.js
 --- portfolio-charts.containers.js
-- pages
---- home
+- pages/
+--- home/
 ------ index.page.jsx
---- admin
+--- admin/
 ------ index..page.jsx
---- portfolio
+--- portfolio/
 ------ index.page.jsx
 - index.jsx / index.tsx
 - App.jsx / App.tsx
