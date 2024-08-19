@@ -1,0 +1,4 @@
+### Rendering Patterns
+
+#### Web Vitals
+
