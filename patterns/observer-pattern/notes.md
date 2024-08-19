@@ -141,3 +141,21 @@ obj.val1 = false;
 console.log(truthyFn()) // displays false
 ```
 
+##### Remember that arrow functions are considered expressions and so are not hoisted ...
+so these cannot be called before their definition.  Regular functions, on the other hand,
+are hoisted.
+
+```
+// Function Declaration
+console.log(hoistedFunction()); // Works because of hoisting
+function hoistedFunction() {
+  return 'Hello from hoisted function';
+}
+
+// Arrow Function
+console.log(nonHoistedFunction()); // Error: nonHoistedFunction is not defined
+const nonHoistedFunction = () => {
+  return 'Hello from non-hoisted function';
+};
+
+```
