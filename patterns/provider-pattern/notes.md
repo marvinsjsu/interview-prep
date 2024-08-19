@@ -23,11 +23,8 @@ With the Provider pattern via `Context API`,the components that need the data or
 get this via `useContext`.
 
 ```
-import { listingsUrl } from 'src/constants/apis';
 
-const ListingsDataContext = React.createContext([]);
-
-export const ListingsDataProvider = ({ children }) => {
+export const useListings = () => {
     const [listings, setListings] = React.useState([]);
 
     React.useEffect(() => {
@@ -47,6 +44,20 @@ export const ListingsDataProvider = ({ children }) => {
         fetchListings();
     }, []);
 
+    return listings;
+};
+```
+
+```
+import { listingsUrl } from 'src/constants/apis';
+
+const ListingsDataContext = React.createContext([]);
+
+export const ListingsDataProvider = ({ children }) => {
+    const listings = useListings();
+
+    if (!listings) return null;
+
     return (
         <ListingsDataContext.Provider value={{ listings }}>
             {children}
@@ -55,9 +66,7 @@ export const ListingsDataProvider = ({ children }) => {
 };
 
 export const useListingsDataContext = () => {
-    const { listings } = React.useContext(ListingsDataContext);
-
-    return { listings };
+    return React.useContext(ListingsDataContext);
 };
 ```
 
@@ -81,7 +90,7 @@ export default App;
 import { useListingsDataContext } from 'src/contexts/listings-data.context.js';
 
 const MainContent = () => {
-    const { listings } = useListingsDataContext();
+    const listings = useListingsDataContext();
 
     ...
 };
