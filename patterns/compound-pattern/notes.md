@@ -20,3 +20,5 @@ single task.
 children components, which means, we can't really wrap these children components
 with another component unless we specify the props to pass to the wrapped 
 components
+
+- naming collisions, `React.cloneElement` performs a shallow merrge.
