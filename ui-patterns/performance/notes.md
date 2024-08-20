@@ -134,11 +134,20 @@ is a high-priority fetch, ensuring the resource is available as soon as it's nee
 
 This is used for fonts, images, videos, and scripts that are crucial for the page
 but not immediately referenced in the HTML or CSS.  This fetch will block rendering
-when needed.
+when needed.  It can reduce layout shifts and because we're rendering from HTTP cache, we can load and render quickly.
+
+These `preloaded` resources should be fetched no longer than 3 seconds after the initial load.
 
 ```
 <link rel="preload" href="/fonts/my-font.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
+```
+or
+
+```
+const PreloadedComponent = lazy(() =>
+  import(/* webpackPreload: true */ "./PreloadedComponent")
+);
 ```
 
 ##### `dns-prefetch`
@@ -172,3 +181,7 @@ One step above `dns-prefetch`, this does the DNS resolution and initiates early 
 ##### `prerender`
 
 This fully loads and renders a page in the background.  This is the most aggressive directive we can use and most resource-intensive, because it will render the page in a hidden tab.  It's wasteful if the user never navigates to this `prerendered` page.
+
+
+#### Script tag: `async` vs. `defer`
+
