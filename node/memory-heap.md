@@ -1,0 +1,2 @@
+### Memory Heap
+Where our code allocates memory space to store values.  When we use global variables, we are using up space on a limited resource and can cause `memory leak`, which means space being occupied by values that are not used.

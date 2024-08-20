@@ -46,6 +46,9 @@ Node is often used for running scripts, web applications, and web servers.
 - `lib` is where modules like `fs` and `http` live
 - `src` is where the C++ code lives where the `lib` modules bind to
 
+[libuv](http://libuv.org/)
+- Python and other languages have bindings to `libuv`
+- `src` has the C-code that other languages bind to
 
 ##### LTS (Long-Term Support version)
 - gives us developers time to use a stable version of Node
@@ -56,3 +59,23 @@ Node is often used for running scripts, web applications, and web servers.
 ##### REPL (Read Eval Print Loop)
 
 [Node Release Schedule](https://nodejs.org/en/about/previous-releases)
+
+
+#### Node vs PHP vs Python
+- Node, PHP, and Python are high-level languages and are single-threaded languages
+- Python and PHP require a web server (something like Apache); each request would result in a new thread, which is resource-intensive
+- Node became popular in 2009 because of non-blocking I/O, which means it can handle thousands of concurrent requests without the need of a web server
+- Python has since started using non-blocking I/O with `libuv`
+
+- Node is best used for:
+   - reading from File-system
+   - using network 
+   - servers that talk to databases and other services
+   - because it delegates task to the operating system
+   
+- Node is not good for:
+   - video processing
+   - Machine Learning (blocks the GPU)
+   - blocking processor-heavy computations (blocks the CPU)
+
+
