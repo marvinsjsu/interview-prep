@@ -26,6 +26,7 @@ Initial execution on the first iteration of the loop:
 #### `Callback Queue` (aka `Event Queue` or `Message Queue` or `Task Queue`)
 
 
-#### `Micro-task Queue`
+#### `Micro-task Queue` (aka `Job Queue`)
+Has higher priority than the `Callback Queue`, so when the `Call Stack` is empty, the `event loop` will then check this, `Micro-task Queue`, then will check the `Callback Queue`.  This queue is dedicated to `Promises`.
 
 
