@@ -66,3 +66,17 @@ const getData2 = async () => {
 
 getData2();
 ```
+
+### Parallel vs Sequential vs Race 
+- `Promise.all` for parallel async tasks (all promises must resolve, otherwise we need to add `.catch`)
+- `Promise.race` for returning the returned value of the first async task that finishes
+- use `await` for sequential execution of async tasks 
+
+### ES2020
+- adds `Promise.allSettled`, similar to `Promise.all`, but does not care about any rejected promises.  It will return an array with objects from the promises with `status` property and the `value` property (if resolved) or `reason` property` (if rejected).
+
+### ES2021
+- adds `Promise.any`, which resolves when any of the promises is resolved.  If none of the promises resolves, then it throws an error.
+
+
+

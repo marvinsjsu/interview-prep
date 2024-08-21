@@ -21,12 +21,12 @@ Initial execution on the first iteration of the loop:
 
 
 #### `Call Stack`
-
+When our JavaScript engine executes our code line-by-line, it will push functions on our `Call Stack`.
 
 #### `Callback Queue` (aka `Event Queue` or `Message Queue` or `Task Queue`)
 
 
 #### `Micro-task Queue` (aka `Job Queue`)
-Has higher priority than the `Callback Queue`, so when the `Call Stack` is empty, the `event loop` will then check this, `Micro-task Queue`, then will check the `Callback Queue`.  This queue is dedicated to `Promises`.
+Has higher priority than the `Callback Queue`, so when the `Call Stack` is empty, the `event loop` will then check this, `Micro-task Queue`, then will check the `Callback Queue`.  This queue is dedicated to `Promises`.  This queue was added when `Promises` was added.
 
 
