@@ -28,3 +28,4 @@ JavaScript doesn't handle multithreading which avoids having to deal with managi
 `libuv` gives us a `thread pool`.  There's the `main thread` that executes V8 and the `Event Loop`, then `4 more threads` readily available to take on work throughout the lifecycle of our Node process. `libuv` is smart, in that it will use the operating system as much as possible, so the use of the `thread pool` is minimized (since it's a limited resource) - whenever the operating system can do a task, `libuv` will just send the task to it.
 
 ##### As a Node developer, we don't have to worry about managing multiple threads, we let Node/libuv to handle this for us. This is why Node has non-blocking I/O.
+
