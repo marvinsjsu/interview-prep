@@ -63,3 +63,6 @@ module.exports = {
 ```
 const { get, send } = require('./lib');  
 ```
+
+#### Module vs Package
+A package is a collection of modules.  It is re-usable and can be accessed through NPM.
