@@ -14,26 +14,26 @@
  */
 
 function sumSquaredDigits (num, sum = 0) {
-    if (num == 0) {
-        return sum;
-    }
+  if (num == 0) {
+    return sum;
+  }
 
-    let lastDigit = num % 10;
-    let remainingDigits = Math.floor(num / 10);
-    sum += (lastDigit * lastDigit);
+  let lastDigit = num % 10;
+  let remainingDigits = Math.floor(num / 10);
+  sum += (lastDigit * lastDigit);
 
-    return sumSquaredDigits(remainingDigits, sum);
+  return sumSquaredDigits(remainingDigits, sum);
 }
 
 const testCases = [
-    [24, 20], 
-    [8, 64],
-    [12, 5],
+  [24, 20], 
+  [8, 64],
+  [12, 5],
 ];
 
 testCases.forEach(([num, expectedOutput]) => {
-    const result = sumSquaredDigits(num);
-    const passes = result === expectedOutput;
+  const result = sumSquaredDigits(num);
+  const passes = result === expectedOutput;
 
-    console.log({ num, expectedOutput, result, passes });
+  console.log({ num, expectedOutput, result, passes });
 });

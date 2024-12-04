@@ -184,47 +184,47 @@
 
 
 function findLongestSubstringNoRepeatOptimal (str) {
-    if (str.length <= 1) {
-        return str.length;
+  if (str.length <= 1) {
+    return str.length;
+  }
+
+  const charFreq = new Map();
+
+  let start = 0;
+  let end = 0;
+  let maxLength = 0;
+
+  while (end < str.length) {
+    const currChar = str[end];
+    if (charFreq.has(currChar) && charFreq.get(currChar) >= start) {
+      start = charFreq.get(currChar) + 1;
+      charFreq.set(currChar, end);
+    } else {
+      charFreq.set(currChar, end);
     }
 
-    const charFreq = new Map();
+    const length = end - start + 1;
+    maxLength = Math.max(maxLength, length);
+    end++;
+  }
 
-    let start = 0;
-    let end = 0;
-    let maxLength = 0;
-
-    while (end < str.length) {
-        const currChar = str[end];
-        if (charFreq.has(currChar) && charFreq.get(currChar) >= start) {
-            start = charFreq.get(currChar) + 1;
-            charFreq.set(currChar, end);
-        } else {
-            charFreq.set(currChar, end);
-        }
-
-        const length = end - start + 1;
-        maxLength = Math.max(maxLength, length);
-        end++;
-    }
-
-    return maxLength;
+  return maxLength;
 }
 
 const testCases = [
-    ["", 0], 
-    ["bbbbbb", 1],
-    ["pwwkew", 3],
-    ["conceptoftheday", 8],
-    ["bbbbbbbbbbbbbbbbbb", 1],
-    ["racecar", 4],
-    ["bankrupted", 10]
+  ['', 0], 
+  ['bbbbbb', 1],
+  ['pwwkew', 3],
+  ['conceptoftheday', 8],
+  ['bbbbbbbbbbbbbbbbbb', 1],
+  ['racecar', 4],
+  ['bankrupted', 10]
 ];
 
 testCases.forEach(([str, expectedOutput]) => {
-    const result = findLongestSubstringNoRepeatOptimal(str);
-    const passes = result === expectedOutput;
+  const result = findLongestSubstringNoRepeatOptimal(str);
+  const passes = result === expectedOutput;
 
-    console.log({ str, expectedOutput, result, passes });
+  console.log({ str, expectedOutput, result, passes });
 });
 

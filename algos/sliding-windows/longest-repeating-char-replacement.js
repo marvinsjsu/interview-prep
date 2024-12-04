@@ -107,114 +107,114 @@
  */
 
 function findLongestRepeatingCharReplacementBrute(str, k) {
-    if (str.length <= k) {
-        return str.length;
+  if (str.length <= k) {
+    return str.length;
+  }
+
+  let maxLen = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    let replacementCount = k;
+    let left = i;
+    let right = i;
+    let tempMaxLen = 0;
+    let currStartChar = str[left];
+
+    while (right < str.length) {
+      if (currStartChar === str[right]) {
+        tempMaxLen++;
+      } else {
+        if (replacementCount > 0) {
+          tempMaxLen++;
+          replacementCount--;
+        } else {
+          break;
+        }
+      }
+
+      right++;
     }
 
-    let maxLen = 0;
-
-    for (let i = 0; i < str.length; i++) {
-        let replacementCount = k;
-        let left = i;
-        let right = i;
-        let tempMaxLen = 0;
-        let currStartChar = str[left];
-
-        while (right < str.length) {
-            if (currStartChar === str[right]) {
-                tempMaxLen++;
-            } else {
-                if (replacementCount > 0) {
-                    tempMaxLen++;
-                    replacementCount--;
-                } else {
-                    break;
-                }
-            }
-
-            right++;
+    let currLeft = left;
+    while (currLeft >= 0) {
+      if (currLeft === left) {
+        currLeft--;
+        continue;
+      } else if (str[left] === str[currLeft]) {
+        tempMaxLen++;
+      } else {
+        if (replacementCount > 0) {
+          tempMaxLen++;
+          replacementCount--;
+        } else {
+          break;
         }
+      }
 
-        let currLeft = left;
-        while (currLeft >= 0) {
-            if (currLeft === left) {
-                currLeft--;
-                continue;
-            } else if (str[left] === str[currLeft]) {
-                tempMaxLen++;
-            } else {
-                if (replacementCount > 0) {
-                    tempMaxLen++;
-                    replacementCount--;
-                } else {
-                    break;
-                }
-            }
-
-            currLeft--;
-        }
-
-        if (tempMaxLen > maxLen) {
-            maxLen = tempMaxLen;
-        }
+      currLeft--;
     }
 
-    return maxLen;
+    if (tempMaxLen > maxLen) {
+      maxLen = tempMaxLen;
+    }
+  }
+
+  return maxLen;
 }
 
 function findLongestRepeatingCharReplacementOptimal (str, k) {
-    if (k >= str.length) {
-        return str.length;
+  if (k >= str.length) {
+    return str.length;
+  }
+
+  const charFreq = new Map();
+
+  let mostFreqChar = 0;
+  let maxLen = 0;
+  let start = 0;
+  let end = 0;
+
+  while (end < str.length) {
+    if (charFreq.has(str[end])) {
+      charFreq.set(str[end], charFreq.get(str[end]) + 1);
+    } else {
+      charFreq.set(str[end], 1);
     }
 
-    const charFreq = new Map();
+    mostFreqChar = Math.max(mostFreqChar, charFreq.get(str[end]));
 
-    let mostFreqChar = 0;
-    let maxLen = 0;
-    let start = 0;
-    let end = 0;
+    // Do we have enough replacements to continue?
+    const setNextWindow = (end - start + 1 - mostFreqChar) > k;
 
-    while (end < str.length) {
-        if (charFreq.has(str[end])) {
-            charFreq.set(str[end], charFreq.get(str[end]) + 1);
-        } else {
-            charFreq.set(str[end], 1);
-        }
-
-        mostFreqChar = Math.max(mostFreqChar, charFreq.get(str[end]));
-
-        // Do we have enough replacements to continue?
-        const setNextWindow = (end - start + 1 - mostFreqChar) > k;
-
-        if (setNextWindow) {
-            charFreq.set(str[start], charFreq.get(str[start]) - 1);
-            start++;
-        }
-
-        const length = end - start + 1;
-        maxLen = Math.max(maxLen, length);
-        end++;
+    if (setNextWindow) {
+      charFreq.set(str[start], charFreq.get(str[start]) - 1);
+      start++;
     }
 
-    return maxLen;
+    const length = end - start + 1;
+    maxLen = Math.max(maxLen, length);
+    end++;
+  }
+
+  return maxLen;
 }
 
 const testCases = [
-    ["aabccbb", 2, 5], 
-    ["fzfzfz", 6, 6],
-    ["xxxxx", 1, 5],
-    ["lmno", 2, 3],
-    ["abab", 2, 4],
-    ["dippitydip", 4, 6],
-    ["roller", 2, 4],
-    ["mbjhzdidgyzfmegqmabvdqjdlkzhqejjnwwarshmziqokbnalmtqjxzcpofgfjfembxdaubqmfjedchojpveyzlcyhjbyvlflmdizempazgrmsvxjyzrslamvszzukvrudzghrcmohoittwrjjdpyrfpexciuczivimdbgvddyrvhxtkrlpixifovlvgawpslhyiuqypdckfvyincjkliskzsofckfjqitirvmzevxmtgkpkylucrwqqtkltvtzuuyzgpyiudfftuhcpkykrlmhywwwoqfsxkjupbikymlzosythoboyomkebergpmajnwqxuarhssgweaziuyeppubxmnbqjsopfxvlzwaqdjxgledtppepakcqewlniiwkitoemvkxktcwrilnotrtwjiszvhfetnenxcvnczohlllwdeirjkkljjukzrgjnauupwkwijqxzaosryjrcojmxqyfrmokuuyywyotgywbujgugvtdbqdkuxtgoobximfixpgrktbcwdyyznlmibkdfbqbyrfwaegxceedbxoevioclgpmwclnxvnrwlftmfrzkdthrrdudqaiuxrclvukhonhwbxuvfrquvbylkkztyjbwihiztcowvzpcsvhowttljzgwmjynlmxhreepvmmgsofqpbzqmrhebztogfqvncmtrorvujcknvlyueixqwvvpiogecwqmfkqddazcwmyxdpaheupibmmhqhwtzvtxkumzwretgfidzfsttdsafvqfojvdemhaqovaczjwshaivysrmsinndvwstvfbjxcvqiwkaqfvzuxkrkguymuuazxopfotdphzowpngnmrmgvxmdvdycyniaunlviwpuvdhvhnngrfzfiqnjhsmeqemhzbtfaynupqcxggftgzvfwgdetzlxmraeytijttudiywbctrwikcjwcjqnaxmucqanjfffmbbuubhrgqnrsvvfqenbynbpiiptlwram" , 903
-, 952],
+  ['aabccbb', 2, 5], 
+  ['fzfzfz', 6, 6],
+  ['xxxxx', 1, 5],
+  ['lmno', 2, 3],
+  ['abab', 2, 4],
+  ['dippitydip', 4, 6],
+  ['roller', 2, 4],
+  ['mbjhzdidgyzfmegqmabvdqjdlkzhqejjnwwarshmziqokbnalmtqjxzcpofgfjfembxdaubqmfjedchojpveyzlcyhjbyvlflmdizempazgrmsvxjyzrslamvszzukvrudzghrcmohoittwrjjdpyrfpexciuczivimdbgvddyrvhxtkrlpixifovlvgawpslhyiuqypdckfvyincjkliskzsofckfjqitirvmzevxmtgkpkylucrwqqtkltvtzuuyzgpyiudfftuhcpkykrlmhywwwoqfsxkjupbikymlzosythoboyomkebergpmajnwqxuarhssgweaziuyeppubxmnbqjsopfxvlzwaqdjxgledtppepakcqewlniiwkitoemvkxktcwrilnotrtwjiszvhfetnenxcvnczohlllwdeirjkkljjukzrgjnauupwkwijqxzaosryjrcojmxqyfrmokuuyywyotgywbujgugvtdbqdkuxtgoobximfixpgrktbcwdyyznlmibkdfbqbyrfwaegxceedbxoevioclgpmwclnxvnrwlftmfrzkdthrrdudqaiuxrclvukhonhwbxuvfrquvbylkkztyjbwihiztcowvzpcsvhowttljzgwmjynlmxhreepvmmgsofqpbzqmrhebztogfqvncmtrorvujcknvlyueixqwvvpiogecwqmfkqddazcwmyxdpaheupibmmhqhwtzvtxkumzwretgfidzfsttdsafvqfojvdemhaqovaczjwshaivysrmsinndvwstvfbjxcvqiwkaqfvzuxkrkguymuuazxopfotdphzowpngnmrmgvxmdvdycyniaunlviwpuvdhvhnngrfzfiqnjhsmeqemhzbtfaynupqcxggftgzvfwgdetzlxmraeytijttudiywbctrwikcjwcjqnaxmucqanjfffmbbuubhrgqnrsvvfqenbynbpiiptlwram' , 903
+    , 952],
 ];
 
 testCases.forEach(([s, k, expectedOutput]) => {
-    // const result = findLongestRepeatingCharReplacementBrute(s, k);
-    const result = findLongestRepeatingCharReplacementOptimal(s, k);
-    const passed = result === expectedOutput;
+  // const result = findLongestRepeatingCharReplacementBrute(s, k);
+  const result = findLongestRepeatingCharReplacementOptimal(s, k);
+  const passed = result === expectedOutput;
 
-    console.log({ s, k, expectedOutput, result, passed });
+  console.log({ s, k, expectedOutput, result, passed });
 });

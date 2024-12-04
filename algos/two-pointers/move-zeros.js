@@ -25,46 +25,46 @@
  */
 
 function moveZerosToEnd (nums) {
-    if (nums.length === 0 || nums.length === 1) {
-        return nums;
-    }
-
-    let ptr1 = 0;
-    let ptr2 = 0;
-
-    while (ptr2 < nums.length) {
-        if (nums[ptr2] !== 0) {
-            const temp = nums[ptr1];
-            nums[ptr1] = nums[ptr2];
-            nums[ptr2] = temp;
-            ptr1++;
-            ptr2++;
-        } else {
-            ptr2++;
-        }
-    }
-
+  if (nums.length === 0 || nums.length === 1) {
     return nums;
+  }
+
+  let ptr1 = 0;
+  let ptr2 = 0;
+
+  while (ptr2 < nums.length) {
+    if (nums[ptr2] !== 0) {
+      const temp = nums[ptr1];
+      nums[ptr1] = nums[ptr2];
+      nums[ptr2] = temp;
+      ptr1++;
+      ptr2++;
+    } else {
+      ptr2++;
+    }
+  }
+
+  return nums;
 }
 
 
 const testValues = [
-    [[0, 0, 0, 1, 2, 3], [1, 2, 3, 0, 0, 0]],
-    [[], []],
-    [[1], [1]],
-    [[0, 0, 'a', 'b', 'c'], ['a', 'b', 'c', 0, 0]],
+  [[0, 0, 0, 1, 2, 3], [1, 2, 3, 0, 0, 0]],
+  [[], []],
+  [[1], [1]],
+  [[0, 0, 'a', 'b', 'c'], ['a', 'b', 'c', 0, 0]],
 ];
 
 testValues.forEach(([input, expectedOutput]) => {
-    const result = moveZerosToEnd(input);
+  const result = moveZerosToEnd(input);
 
-    let matches = true;
-    result.forEach((val, index) => {
-        if (val !== expectedOutput[index]) {
-            matches = false;
-        }
-    });
+  let matches = true;
+  result.forEach((val, index) => {
+    if (val !== expectedOutput[index]) {
+      matches = false;
+    }
+  });
 
-    console.log({ input, result, expectedOutput, matches });
+  console.log({ input, result, expectedOutput, matches });
 });
 

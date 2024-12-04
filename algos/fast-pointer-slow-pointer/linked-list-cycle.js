@@ -27,19 +27,19 @@ const LinkedList = require('../libs/linked-list');
  * 
  */
 function hasCycle (head) {
-    let ptr1 = head;
-    let ptr2 = head;
+  let ptr1 = head;
+  let ptr2 = head;
 
-    while (ptr2 && ptr2.next) {
-        ptr1 = ptr1.next;
-        ptr2 = ptr2.next.next
+  while (ptr2 && ptr2.next) {
+    ptr1 = ptr1.next;
+    ptr2 = ptr2.next.next;
 
-        if (ptr1 === ptr2) {
-            return true;
-        }
+    if (ptr1 === ptr2) {
+      return true;
     }
+  }
 
-    return false;
+  return false;
 }
 
 
@@ -55,15 +55,15 @@ ll2.addCycle(5, 2);
 ll3.addCycle(5, 4);
 
 const testCases = [
-    [ll1, false],
-    [ll2, true],
-    [ll3, true]
+  [ll1, false],
+  [ll2, true],
+  [ll3, true]
 ];
 
 testCases.forEach(([linkedList, expectedOutput]) => {
-    const result = hasCycle(linkedList.head);
-    const isEqual = result === expectedOutput;
+  const result = hasCycle(linkedList.head);
+  const isEqual = result === expectedOutput;
 
-    linkedList.display();
-    console.log({ expectedOutput, result, isEqual });
+  linkedList.display();
+  console.log({ expectedOutput, result, isEqual });
 });

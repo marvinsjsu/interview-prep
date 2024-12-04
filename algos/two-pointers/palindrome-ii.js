@@ -37,51 +37,51 @@
 // mismatch = 0
 
 function helper (str, moveStart = true) {
-    let start = 0;
-    let end = str.length - 1;
-    let mismatchCount = 0;
+  let start = 0;
+  let end = str.length - 1;
+  let mismatchCount = 0;
 
-    while (start < end) {
-        if (str[start] === str[end]) {
-            start++;
-            end--;
-        } else {
-            if (mismatchCount === 1) {
-                return false;
-            }
+  while (start < end) {
+    if (str[start] === str[end]) {
+      start++;
+      end--;
+    } else {
+      if (mismatchCount === 1) {
+        return false;
+      }
 
-            mismatchCount++;
+      mismatchCount++;
 
-            if (moveStart) {
-                start++;
-            } else {
-                end--;
-            }
-        }
+      if (moveStart) {
+        start++;
+      } else {
+        end--;
+      }
     }
+  }
 
-    return true;
+  return true;
 }
 
 function isPalindrome (string) {
-    return helper(string) || helper(string, false);
+  return helper(string) || helper(string, false);
 }
 
 
 const testCases = [
-    ['', true],
-    ['a', true],
-    ['aa', true],
-    ['ae', true],
-    ['aba', true],
-    ['abab', true],
-    ['aabb', false],
-    ['madame', true],
+  ['', true],
+  ['a', true],
+  ['aa', true],
+  ['ae', true],
+  ['aba', true],
+  ['abab', true],
+  ['aabb', false],
+  ['madame', true],
 ];
 
 testCases.forEach(([input, expectedOutput]) => {
-    const result = isPalindrome(input);
-    const isEqual = result === expectedOutput;
+  const result = isPalindrome(input);
+  const isEqual = result === expectedOutput;
     
-    console.log({ input, expectedOutput, result, isEqual });
+  console.log({ input, expectedOutput, result, isEqual });
 });

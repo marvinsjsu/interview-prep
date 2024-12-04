@@ -27,47 +27,47 @@
  */
 
 function canMakeMeetings (intervals) {
-    if (intervals.length <= 1) {
-        return true;
-    }
+  if (intervals.length <= 1) {
+    return true;
+  }
 
-    let isPossible = true;
+  let isPossible = true;
 
-    intervals.sort((a, b) => a[0] - b[0]);
+  intervals.sort((a, b) => a[0] - b[0]);
     
-    let left = 0;
+  let left = 0;
 
-    while (left < intervals.length - 1) {
-        let right = left + 1;
+  while (left < intervals.length - 1) {
+    let right = left + 1;
 
-        const prevInterval = intervals[left];
-        const currInterval = intervals[right];
+    const prevInterval = intervals[left];
+    const currInterval = intervals[right];
 
-        const [prevStart, prevEnd] = prevInterval;
-        const [currStart, currEnd] = currInterval;
+    const [prevStart, prevEnd] = prevInterval;
+    const [currStart, currEnd] = currInterval;
         
-        if (prevStart >= currStart) {
-            return false;
-        }
-
-        if (currEnd <= prevEnd) {
-            return false;
-        }
-
-        left++;
+    if (prevStart >= currStart) {
+      return false;
     }
 
-    return isPossible;
+    if (currEnd <= prevEnd) {
+      return false;
+    }
+
+    left++;
+  }
+
+  return isPossible;
 }
 
 const testCases = [
-    [[[9, 10], [15, 16], [5, 7], [1, 4], [12, 14]], true],
+  [[[9, 10], [15, 16], [5, 7], [1, 4], [12, 14]], true],
 ];
 
 testCases.forEach(([ intervals, expectedOutput ]) => {
-    const result = canMakeMeetings(intervals);
-    const passes = result === expectedOutput;
+  const result = canMakeMeetings(intervals);
+  const passes = result === expectedOutput;
 
-    console.log({ intervals, expectedOutput, result, passes });
+  console.log({ intervals, expectedOutput, result, passes });
 });
 

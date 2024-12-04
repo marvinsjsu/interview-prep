@@ -33,58 +33,58 @@
  */
 
 function findDuplicateBrute (nums) {
-    for (let left = 0; left < nums.length - 1; left++) {
-        let right = left + 1;
+  for (let left = 0; left < nums.length - 1; left++) {
+    let right = left + 1;
 
-        while (right < nums.length) {
-            if (nums[left] === nums[right]) {
-                return nums[left];
-            }
+    while (right < nums.length) {
+      if (nums[left] === nums[right]) {
+        return nums[left];
+      }
 
-            right++;
-        }
+      right++;
     }
+  }
 }
 
 function findDuplicate (nums) {
-    let slow = nums[0];
-    let fast = nums[0];
+  let slow = nums[0];
+  let fast = nums[0];
 
-    while (true) {
-        slow = nums[slow];
-        fast = nums[nums[fast]];
+  while (true) {
+    slow = nums[slow];
+    fast = nums[nums[fast]];
 
-        if (slow === fast) {
-            break;
-        }
+    if (slow === fast) {
+      break;
     }
+  }
 
-    slow = nums[0];
+  slow = nums[0];
 
-    while (slow !== fast) {
-        slow = nums[slow];
-        fast = nums[fast];
-    }
+  while (slow !== fast) {
+    slow = nums[slow];
+    fast = nums[fast];
+  }
 
-    return fast;
+  return fast;
 }
 
 function movePointer (arr, currPtr, steps = 1) {
-    return (steps + currPtr + arr.length) % arr.length;
+  return (steps + currPtr + arr.length) % arr.length;
 }
 
 const testCases = [
-    [[1, 2, 3, 4, 1], 1],
-    [[1, 2, 3, 2, 4], 2],
-    [[1, 2, 1], 1],
-    [[1, 2, 3, 4, 5, 6, 7, 7], 7],
-    [[1,3,6,2,7,3,5,4], 3],
+  [[1, 2, 3, 4, 1], 1],
+  [[1, 2, 3, 2, 4], 2],
+  [[1, 2, 1], 1],
+  [[1, 2, 3, 4, 5, 6, 7, 7], 7],
+  [[1,3,6,2,7,3,5,4], 3],
 ];
 
 
 testCases.forEach(([input, expectedOutput]) => {
-    const result = findDuplicate(input);
-    const isMatch = expectedOutput === result;
+  const result = findDuplicate(input);
+  const isMatch = expectedOutput === result;
 
-    console.log({ input, expectedOutput, result, isMatch });
+  console.log({ input, expectedOutput, result, isMatch });
 });

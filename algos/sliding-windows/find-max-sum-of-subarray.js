@@ -44,74 +44,74 @@
  */
 
 function findMaxSumOfKBrute (nums, k) {
-    let maxSum = Number.NEGATIVE_INFINITY;
+  let maxSum = Number.NEGATIVE_INFINITY;
 
-    for (let i = 0; i < nums.length; i++) {
-        let currSum = nums[i];
-        let loopCount = 1;
+  for (let i = 0; i < nums.length; i++) {
+    let currSum = nums[i];
+    let loopCount = 1;
 
-        while (loopCount < k) {
-            currSum += nums[i + loopCount];
-            loopCount++;
-        }
-        
-        if (currSum > maxSum) {
-            maxSum = currSum;
-        }
+    while (loopCount < k) {
+      currSum += nums[i + loopCount];
+      loopCount++;
     }
+        
+    if (currSum > maxSum) {
+      maxSum = currSum;
+    }
+  }
 
-    return maxSum;
+  return maxSum;
 }
 
 function findMaxSumOfKOptimal (nums, k) {
-    let start = 0;
-    let end = start + k;
-    let maxSum = 0;
+  let start = 0;
+  let end = start + k;
+  let maxSum = 0;
 
-    let i = 0;
+  let i = 0;
 
-    while (i < end) {
-        maxSum += nums[i];
-        i++;
+  while (i < end) {
+    maxSum += nums[i];
+    i++;
+  }
+
+  let tempSum = maxSum;
+
+  while (end < nums.length) {
+    tempSum -= nums[start];
+    tempSum += nums[end];
+    start++;
+    end++;
+
+    if (tempSum > maxSum) {
+      maxSum = tempSum;
     }
+  }
 
-    let tempSum = maxSum;
-
-    while (end < nums.length) {
-        tempSum -= nums[start];
-        tempSum += nums[end];
-        start++;
-        end++;
-
-        if (tempSum > maxSum) {
-            maxSum = tempSum;
-        }
-    }
-
-    return maxSum;
+  return maxSum;
 }
 
 function sumValuesWithinIndexes (nums, startIdx, endIdx) {
-    let sum = 0;
+  let sum = 0;
     
-    while (startIdx <= endIdx) {
-        sum += nums[startIdx];
-        startIdx++;
-    }
+  while (startIdx <= endIdx) {
+    sum += nums[startIdx];
+    startIdx++;
+  }
 
-    return sum;
+  return sum;
 }
 
 const testCases = [
-    [[4, 2, -1, 9, 7, -3, 5], 4, 18],
+  [[4, 2, -1, 9, 7, -3, 5], 4, 18],
 ];
 
 testCases.forEach(([nums, k, expectedOutput]) => {
-    const result = findMaxSumOfKOptimal(nums, k);
-    // const result = findMaxSumOfKBrute(nums, k);
-    const isMatch = expectedOutput === result;
+  const result = findMaxSumOfKOptimal(nums, k);
+  // const result = findMaxSumOfKBrute(nums, k);
+  const isMatch = expectedOutput === result;
 
-    console.log({ nums, k, expectedOutput, result, isMatch });
+  console.log({ nums, k, expectedOutput, result, isMatch });
 });
 
                                                                                                                      

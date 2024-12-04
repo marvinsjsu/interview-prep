@@ -46,45 +46,61 @@
  */
 
 function findMaxProfitBrute (prices) {
-    let maxProfit = 0;
-    let buyIdx = 0;
+  let maxProfit = 0;
+  let buyIdx = 0;
 
-    while (buyIdx < prices.length - 1) {
-        const buyPrice = prices[buyIdx];
+  while (buyIdx < prices.length - 1) {
+    const buyPrice = prices[buyIdx];
         
-        let sellIdx = buyIdx + 1;
+    let sellIdx = buyIdx + 1;
 
-        while (sellIdx < prices.length) {
-            const sellPrice = prices[sellIdx];
+    while (sellIdx < prices.length) {
+      const sellPrice = prices[sellIdx];
 
-            if (buyPrice > sellPrice) {
-                sellIdx++;
-                break;
-            }
+      if (buyPrice > sellPrice) {
+        sellIdx++;
+        break;
+      }
 
-            const currProfit = sellPrice - buyPrice;
-            maxProfit = Math.max(maxProfit, currProfit);
-            sellIdx++;
-        }
-
-        buyIdx++;
+      const currProfit = sellPrice - buyPrice;
+      maxProfit = Math.max(maxProfit, currProfit);
+      sellIdx++;
     }
 
-    return maxProfit;
+    buyIdx++;
+  }
+
+  return maxProfit;
+}
+
+function findMaxProfitOptimal (prices) {
+  let minPrice = prices[0];
+  let maxProfit = 0;
+  let buyIdx = 0;
+
+  while (buyIdx < prices.length - 1) {
+    minPrice = Math.min(minPrice, prices[buyIdx]);
+
+    maxProfit = Math.max(maxProfit, prices[buyIdx] - minPrice);
+
+    buyIdx++;
+  }
+
+  return maxProfit;
 }
 
 const testCases = [
-    [[7, 1, 5, 3, 6, 4], 5],
-    [[10, 8, 6, 4, 2], 0],
-    [[10, 4, 11, 1, 5], 7],
-    [[7, 7, 6, 6, 6], 0],
-    [[4, 10, 5, 1, 6, 7], 6],
-    [[4, 4, 4, 3, 3, 4], 1],
+  [[7, 1, 5, 3, 6, 4], 5],
+  [[10, 8, 6, 4, 2], 0],
+  [[10, 4, 11, 1, 5], 7],
+  [[7, 7, 6, 6, 6], 0],
+  [[4, 10, 5, 1, 6, 7], 6],
+  [[4, 4, 4, 3, 3, 4], 1],
 ];
 
 testCases.forEach(([ prices, expectedOutput ]) => {
-    const result = findMaxProfitBrute(prices);
-    const passes = result === expectedOutput;
+  const result = findMaxProfitBrute(prices);
+  const passes = result === expectedOutput;
 
-    console.log({ prices, expectedOutput, result, passes });
+  console.log({ prices, expectedOutput, result, passes });
 });

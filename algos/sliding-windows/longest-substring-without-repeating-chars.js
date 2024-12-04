@@ -61,49 +61,49 @@
  */
 
 function longestSubstringOptimal (str) {
-    const map = new Map();
+  const map = new Map();
 
-    let maxLength = 0;
-    let start = 0;
-    let end = 0;
+  let maxLength = 0;
+  let start = 0;
+  let end = 0;
 
-    while (end < str.length) {
-        curr = str[end];
+  while (end < str.length) {
+    curr = str[end];
 
-        if (map.has(curr) && map.get(curr) >= start) {
-            const length = end - start;
+    if (map.has(curr) && map.get(curr) >= start) {
+      const length = end - start;
 
-            if (length > maxLength) {
-                maxLength = length;
-            }
+      if (length > maxLength) {
+        maxLength = length;
+      }
 
-            start = map.get(curr) + 1;
-            map.set(curr, end);
-        } else {
-            map.set(curr, end);
-        }
-
-        end++;
+      start = map.get(curr) + 1;
+      map.set(curr, end);
+    } else {
+      map.set(curr, end);
     }
 
-    const lastSubstringLength = end - start;
+    end++;
+  }
 
-    return lastSubstringLength > maxLength
-        ? lastSubstringLength
-        : maxLength;
+  const lastSubstringLength = end - start;
+
+  return lastSubstringLength > maxLength
+    ? lastSubstringLength
+    : maxLength;
 }
 
 const testCases = [
-    ["abcdbeaff", 6],
-    ["abcdbea", 5],
-    ["aaa", 1],
-    ["abc", 3],
-    ["", 0], 
+  ['abcdbeaff', 6],
+  ['abcdbea', 5],
+  ['aaa', 1],
+  ['abc', 3],
+  ['', 0], 
 ];
 
 testCases.forEach(([str, expectedOutput]) => {
-    const result = longestSubstringOptimal(str);
-    const passed = expectedOutput === result;
+  const result = longestSubstringOptimal(str);
+  const passed = expectedOutput === result;
 
-    console.log({ str, expectedOutput, result, passed });
+  console.log({ str, expectedOutput, result, passed });
 });

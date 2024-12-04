@@ -38,52 +38,52 @@ const LinkedList = require('../libs/linked-list');
  */
 
 function findMiddleNodeWithArray (head) {
-    const nodes = [];
+  const nodes = [];
 
-    let ptr = head;
+  let ptr = head;
     
-    while (ptr) {
-        nodes.push(ptr);
-        ptr = ptr.next;
-    }
+  while (ptr) {
+    nodes.push(ptr);
+    ptr = ptr.next;
+  }
 
-    const middleNodeIndex = Math.floor(nodes.length / 2);
+  const middleNodeIndex = Math.floor(nodes.length / 2);
 
-    console.log({ nodes });
+  console.log({ nodes });
 
-    return nodes[middleNodeIndex];
+  return nodes[middleNodeIndex];
 }
 
 function findMiddleNodeBrute (head) {
-    let ptr1 = head;
-    let ptr2 = head;
+  let ptr1 = head;
+  let ptr2 = head;
 
-    let nodeCount = 0;
-    while (ptr2) {
-        ptr2 = ptr2.next;
-        nodeCount++;
-    }
+  let nodeCount = 0;
+  while (ptr2) {
+    ptr2 = ptr2.next;
+    nodeCount++;
+  }
 
-    let stepsToMiddleNode = Math.floor(nodeCount / 2) + 1;
-    let stepsTaken = 1;
-    while (stepsTaken < stepsToMiddleNode) {
-        ptr1 = ptr1.next;
-        stepsTaken++;
-    }
+  let stepsToMiddleNode = Math.floor(nodeCount / 2) + 1;
+  let stepsTaken = 1;
+  while (stepsTaken < stepsToMiddleNode) {
+    ptr1 = ptr1.next;
+    stepsTaken++;
+  }
 
-    return ptr1;
+  return ptr1;
 }
 
 function findMiddleNode (head) {
-    let slowPtr = head;
-    let fastPtr = head;
+  let slowPtr = head;
+  let fastPtr = head;
 
-    while (fastPtr && fastPtr.next) {
-        slowPtr = slowPtr.next;
-        fastPtr = fastPtr?.next.next;
-    }
+  while (fastPtr && fastPtr.next) {
+    slowPtr = slowPtr.next;
+    fastPtr = fastPtr?.next.next;
+  }
 
-    return slowPtr;
+  return slowPtr;
 }
 
 const ll1 = new LinkedList();
@@ -97,19 +97,19 @@ ll3.from([1, 2, 3]);
 ll4.from([1, 2, 3, 4, 5, 6, 7]);
 
 const testCases = [
-    [ll1, ll1.head],
-    [ll2, ll2.head.next],
-    [ll3, ll3.head.next],
-    [ll4, ll4.head.next.next.next],
+  [ll1, ll1.head],
+  [ll2, ll2.head.next],
+  [ll3, ll3.head.next],
+  [ll4, ll4.head.next.next.next],
 ];
 
 testCases.forEach(([linkedList, expectedOutput]) => {
-    const result = findMiddleNodeWithArray(linkedList.head);
-    // const result = findMiddleNodeBrute(linkedList.head);
-    // const result = findMiddleNode(linkedList.head);
+  const result = findMiddleNodeWithArray(linkedList.head);
+  // const result = findMiddleNodeBrute(linkedList.head);
+  // const result = findMiddleNode(linkedList.head);
 
-    const isSameNode = result === expectedOutput;
+  const isSameNode = result === expectedOutput;
 
-    console.log(linkedList.display());
-    console.log({ result, expectedOutput, isSameNode });
+  console.log(linkedList.display());
+  console.log({ result, expectedOutput, isSameNode });
 });

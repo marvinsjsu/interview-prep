@@ -60,123 +60,123 @@ const Dequeue = require('../libs/dequeue');
 const MinHeap = require('../libs/min-heap');
 
 function getMaxSlidingWindowBrute (nums, w) {
-    const output = [];
+  const output = [];
 
-    if (w > nums.length) {
-        return output;
-    }
-
-    if (w === nums.length) {
-        nums.sort((a, b) => a - b);
-
-        return [nums[nums.length - 1]];
-    }
-
-    for (let i = 0; i <= nums.length - w; i++) { // O(n - w)
-        let maxValue = Number.NEGATIVE_INFINITY;
-
-        for (let j = i; j < i + w; j++) { // O(w)
-            if (nums[j] > maxValue) {
-                maxValue = nums[j];
-            }
-        }
-
-        output.push(maxValue);
-    }
-
+  if (w > nums.length) {
     return output;
+  }
+
+  if (w === nums.length) {
+    nums.sort((a, b) => a - b);
+
+    return [nums[nums.length - 1]];
+  }
+
+  for (let i = 0; i <= nums.length - w; i++) { // O(n - w)
+    let maxValue = Number.NEGATIVE_INFINITY;
+
+    for (let j = i; j < i + w; j++) { // O(w)
+      if (nums[j] > maxValue) {
+        maxValue = nums[j];
+      }
+    }
+
+    output.push(maxValue);
+  }
+
+  return output;
 }
 
 function getMaxSlidingWindowOptimal (nums, w) {
     
-    if (nums.length === 1) {
-        return nums;
+  if (nums.length === 1) {
+    return nums;
+  }
+
+  const output = [];
+  const currWindow = new Dequeue();
+
+  let i = 0;
+  while ( i < w) {
+    cleanup(i, currWindow, nums);
+    currWindow.push(i);
+    i++;
+  }
+
+  output.push(nums[currWindow.peekFront()]);
+
+  for (let i = w; i < nums.length; i++) {
+    cleanup(i, currWindow, nums);
+
+    if (currWindow.length > 0
+            && currWindow.peekFront() <= i - w
+    ) {
+      currWindow.shift();
     }
 
-    const output = [];
-    const currWindow = new Dequeue();
-
-    let i = 0;
-    while ( i < w) {
-        cleanup(i, currWindow, nums);
-        currWindow.push(i);
-        i++;
-    }
+    currWindow.push(i);
 
     output.push(nums[currWindow.peekFront()]);
+  }
 
-    for (let i = w; i < nums.length; i++) {
-        cleanup(i, currWindow, nums);
-
-        if (currWindow.length > 0
-            && currWindow.peekFront() <= i - w
-        ) {
-            currWindow.shift();
-        }
-
-        currWindow.push(i);
-
-        output.push(nums[currWindow.peekFront()]);
-    }
-
-    return output;
+  return output;
 }
 
 function cleanup (index, currentWindow, nums) {
-    while (currentWindow.length > 0
+  while (currentWindow.length > 0
         &&  nums[index] >= nums[currentWindow.peekBack()]
-    ) {
-        currentWindow.pop();
-    }
+  ) {
+    currentWindow.pop();
+  }
 }
 
 
 function getMaxSlidingWindowOptimal2 (nums, w) {
-    const output = [];
-    const minHeap = new MinHeap();
+  const output = [];
+  const minHeap = new MinHeap();
 
-    for (let i = 0; i <= nums.length - w; i++) {
-        const queue = [];
-        let currIndex = i;
-        let end = i + w;
+  for (let i = 0; i <= nums.length - w; i++) {
+    const queue = [];
+    let currIndex = i;
+    let end = i + w;
 
-        while (currIndex < end) {
-            minHeap.offer(nums[currIndex]);
-            currIndex++;
-        }
-
-        while (minHeap.size() > 0) {
-            const val = minHeap.poll();
-            queue.push(val);
-        }
-
-        output.push(queue[queue.length - 1]);
+    while (currIndex < end) {
+      minHeap.offer(nums[currIndex]);
+      currIndex++;
     }
 
-    return output;
+    while (minHeap.size() > 0) {
+      const val = minHeap.poll();
+      queue.push(val);
+    }
+
+    output.push(queue[queue.length - 1]);
+  }
+
+  return output;
 }
 
 
 const testCases = [
-    [[-4, 2, -5, 3, 6], 3, [2, 3, 6]],
-    [[1, 2, 3, 4, 5, 6], 6, [6]],
-    [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4, [4, 5, 6, 7, 8, 9, 10]],
+  [[-4, 2, -5, 3, 6], 3, [2, 3, 6]],
+  [[1, 2, 3, 4, 5, 6], 6, [6]],
+  [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4, [4, 5, 6, 7, 8, 9, 10]],
 ];
 
 testCases.forEach(([nums, w, expectedOutput]) => {
-    // const result = getMaxSlidingWindowBrute(nums, w);
-    const result = getMaxSlidingWindowOptimal(nums, w);
-    // const result = getMaxSlidingWindowOptimal2(nums, w);
+  // const result = getMaxSlidingWindowBrute(nums, w);
+  const result = getMaxSlidingWindowOptimal(nums, w);
+  // const result = getMaxSlidingWindowOptimal2(nums, w);
 
-    let passes = result.length === expectedOutput.length;
+  let passes = result.length === expectedOutput.length;
 
-    expectedOutput.forEach((expectedValue) => {
-        if (!result.includes(expectedValue)) {
-            passes = false;
-        }
-    });
+  expectedOutput.forEach((expectedValue) => {
+    if (!result.includes(expectedValue)) {
+      passes = false;
+    }
+  });
 
-    console.log({ nums, w, expectedOutput, result, passes });
+  console.log({ nums, w, expectedOutput, result, passes });
 });
 
 // testCases.forEach(([nums, w, expectedOutput]) => {

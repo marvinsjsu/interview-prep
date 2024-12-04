@@ -81,171 +81,171 @@
  */
 
 function findMinWindowSubsBrute (str1, str2) {
-    if (str1.length < str2.length) {
-        return "";
+  if (str1.length < str2.length) {
+    return '';
+  }
+
+  if (str1.length === 0 || str2.length === 0) {
+    return '';
+  }
+
+  let minSub = str1;
+  let foundSubsequence = false;
+  let windowStart = 0;
+
+  while (windowStart < str1.length) {
+    let startStr1Idx = windowStart;
+    let currStr2Idx = 0;
+    while (startStr1Idx < str1.length) {
+      if (str1[startStr1Idx] !== str2[currStr2Idx]) {
+        startStr1Idx++;
+      } else {
+        break;
+      }
     }
 
-    if (str1.length === 0 || str2.length === 0) {
-        return "";
+    if (windowStart === 0 && startStr1Idx === str1.length) {
+      return '';
     }
 
-    let minSub = str1;
-    let foundSubsequence = false;
-    let windowStart = 0;
+    let endStr1Idx = startStr1Idx + 1;
+    currStr2Idx++;
 
-    while (windowStart < str1.length) {
-        let startStr1Idx = windowStart;
-        let currStr2Idx = 0;
-        while (startStr1Idx < str1.length) {
-            if (str1[startStr1Idx] !== str2[currStr2Idx]) {
-                startStr1Idx++;
-            } else {
-                break;
-            }
-        }
-
-        if (windowStart === 0 && startStr1Idx === str1.length) {
-            return "";
-        }
-
-        let endStr1Idx = startStr1Idx + 1;
+    while (currStr2Idx < str2.length && endStr1Idx < str1.length) {
+      if (str1[endStr1Idx] === str2[currStr2Idx]) {
+        endStr1Idx++;
         currStr2Idx++;
-
-        while (currStr2Idx < str2.length && endStr1Idx < str1.length) {
-            if (str1[endStr1Idx] === str2[currStr2Idx]) {
-                endStr1Idx++;
-                currStr2Idx++;
-            } else {
-                endStr1Idx++;
-            }
-        }
-
-        if (currStr2Idx !== str2.length) {
-            windowStart++;
-            break;
-        }
-
-        let output = '';
-
-        for (let i = startStr1Idx; i < endStr1Idx; i++) {
-            output += str1[i];
-        }
-
-        foundSubsequence = true;
-
-        if (output.length < minSub.length) {
-            minSub = output;
-        }
-
-        windowStart++;
+      } else {
+        endStr1Idx++;
+      }
     }
 
-    return foundSubsequence ? minSub : "";
+    if (currStr2Idx !== str2.length) {
+      windowStart++;
+      break;
+    }
+
+    let output = '';
+
+    for (let i = startStr1Idx; i < endStr1Idx; i++) {
+      output += str1[i];
+    }
+
+    foundSubsequence = true;
+
+    if (output.length < minSub.length) {
+      minSub = output;
+    }
+
+    windowStart++;
+  }
+
+  return foundSubsequence ? minSub : '';
 }
 
 function findMinWindowSubsBetter (str1, str2) {
-    let str1Length = str1.length;
-    let str2Length = str2.length;
+  let str1Length = str1.length;
+  let str2Length = str2.length;
 
-    let minSubLength = Infinity;
+  let minSubLength = Infinity;
 
-    let str1Idx = 0;
-    let str2Idx = 0;
-    let start = 0;
-    let minSubsequence = "";
+  let str1Idx = 0;
+  let str2Idx = 0;
+  let start = 0;
+  let minSubsequence = '';
 
-    while (str1Idx < str1Length) {
-        if (str1[str1Idx] === str2[str2Idx]) {
-            if (str2Idx === 0) {
-                start = str1Idx;
-            }
+  while (str1Idx < str1Length) {
+    if (str1[str1Idx] === str2[str2Idx]) {
+      if (str2Idx === 0) {
+        start = str1Idx;
+      }
 
-            str2Idx++;
+      str2Idx++;
 
-            if (str2Idx === str2Length) {
-                const end = str1Idx;
-                const length = end - start + 1;
+      if (str2Idx === str2Length) {
+        const end = str1Idx;
+        const length = end - start + 1;
 
-                if (length < minSubLength) {
-                    minSubsequence = str1.substring(start, end + 1);
-                    minSubLength = length;
-                }
-
-                str1Idx = start;
-                str2Idx = 0;
-            }
+        if (length < minSubLength) {
+          minSubsequence = str1.substring(start, end + 1);
+          minSubLength = length;
         }
 
-        str1Idx++;
+        str1Idx = start;
+        str2Idx = 0;
+      }
     }
 
+    str1Idx++;
+  }
 
-    return minSubsequence;
+
+  return minSubsequence;
 }
 
 function findMinWindowSubsOptimal (str1, str2) {
-    const str1Length = str1.length;
-    const str2Length = str2.length;
+  const str1Length = str1.length;
+  const str2Length = str2.length;
 
-    let minSubLength = Infinity;
-    let minSubsequence = "";
+  let minSubLength = Infinity;
+  let minSubsequence = '';
 
-    let str1Idx = 0;
-    let str2Idx = 0;
+  let str1Idx = 0;
+  let str2Idx = 0;
 
-    while (str1Idx < str1Length) {
+  while (str1Idx < str1Length) {
 
-        if (str1[str1Idx] === str2[str2Idx]) {
+    if (str1[str1Idx] === str2[str2Idx]) {
 
-            str2Idx++;
+      str2Idx++;
 
-            if (str2Idx === str2Length) {
-                let start = str1Idx;
-                let end = str1Idx;
+      if (str2Idx === str2Length) {
+        let start = str1Idx;
+        let end = str1Idx;
 
-                str2Idx--;
+        str2Idx--;
 
-                while (str2Idx >= 0) {
-                    if (str1[start] === str2[str2Idx]) {
-                        str2Idx--;
-                    }
+        while (str2Idx >= 0) {
+          if (str1[start] === str2[str2Idx]) {
+            str2Idx--;
+          }
 
-                    start--;
-                }
-
-                start++;
-
-                const length = end - start + 1;
-
-                if (length < minSubLength) {
-                    minSubLength = length;
-                    minSubsequence = str1.substring(start, end + 1);
-                }
-
-                str1Idx = start;
-                str2Idx = 0;
-            }
+          start--;
         }
 
-        str1Idx++;
+        start++;
+
+        const length = end - start + 1;
+
+        if (length < minSubLength) {
+          minSubLength = length;
+          minSubsequence = str1.substring(start, end + 1);
+        }
+
+        str1Idx = start;
+        str2Idx = 0;
+      }
     }
 
-    return minSubsequence;
+    str1Idx++;
+  }
+
+  return minSubsequence;
 }
 
 const testCases = [
-    ["abbcb", "ac", "abbc"],
-    ["abcdebdde", "bde", "bcde"], 
-    ["abcdebdde", "bdf", ""],
-    ["abcdbebe" , "bbe", "bebe"],
-    ["afgegrwgwga" , "aa", "afgegrwgwga"],
+  ['abbcb', 'ac', 'abbc'],
+  ['abcdebdde', 'bde', 'bcde'], 
+  ['abcdebdde', 'bdf', ''],
+  ['abcdbebe' , 'bbe', 'bebe'],
+  ['afgegrwgwga' , 'aa', 'afgegrwgwga'],
 ];
 
 testCases.forEach(([str1, str2, expectedOutput]) => {
-    // const result = findMinWindowSubsBrute(str1, str2);
-    // const result = findMinWindowSubsBetter(str1, str2);
-    const result = findMinWindowSubsOptimal(str1, str2);
-    const passes = result === expectedOutput;
+  // const result = findMinWindowSubsBrute(str1, str2);
+  // const result = findMinWindowSubsBetter(str1, str2);
+  const result = findMinWindowSubsOptimal(str1, str2);
+  const passes = result === expectedOutput;
 
-    console.log({ str1, str2, expectedOutput, result, passes });
+  console.log({ str1, str2, expectedOutput, result, passes });
 });

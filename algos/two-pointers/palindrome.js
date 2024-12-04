@@ -25,37 +25,37 @@
 
 
 function isPalindrome(str) {
-    if (str.length === 0) {
-        return false;
+  if (str.length === 0) {
+    return false;
+  }
+
+  let ptr1 = 0;
+  let ptr2 = str.length - 1;
+
+  while (ptr1 < ptr2) {
+
+    if (str[ptr1] !== str[ptr2]) {
+      return false;
     }
 
-    let ptr1 = 0;
-    let ptr2 = str.length - 1;
+    ptr1++;
+    ptr2--;
+  }
 
-    while (ptr1 < ptr2) {
-
-        if (str[ptr1] !== str[ptr2]) {
-            return false;
-        }
-
-        ptr1++;
-        ptr2--;
-    }
-
-    return true;
+  return true;
 }
 
 const testStrings = [
-    'test',
-    'madam',
-    'maddam',
-    'ada',
-    'a',
-    'adam',
-    'sadam',
+  'test',
+  'madam',
+  'maddam',
+  'ada',
+  'a',
+  'adam',
+  'sadam',
 ];
 
 testStrings.forEach(str => {
-    console.log(`${str} is a palindrome: ${isPalindrome(str)}`);
+  console.log(`${str} is a palindrome: ${isPalindrome(str)}`);
 });
 

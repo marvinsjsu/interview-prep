@@ -97,57 +97,57 @@
  */
 
 function findMinLengthSumSubarray (nums, target) {
-    if (nums.length === 0) {
-        return 0;
+  if (nums.length === 0) {
+    return 0;
+  }
+
+  if (target <= 0) {
+    return 0;
+  }
+
+  let minLength = Infinity;
+  let left = 0;
+  let right = 0;
+  let sum = 0;
+
+  while (right < nums.length) {
+
+    if (nums[right] >= target) {
+      return 1;
     }
 
-    if (target <= 0) {
-        return 0;
+    sum += nums[right];
+
+    if (sum >= target) {
+      while (sum >= target) {
+        const length = right - left + 1;
+        minLength = Math.min(minLength, length);
+        sum -= nums[left];
+        left++;
+      }
     }
-
-    let minLength = Infinity;
-    let left = 0;
-    let right = 0;
-    let sum = 0;
-
-    while (right < nums.length) {
-
-        if (nums[right] >= target) {
-            return 1;
-        }
-
-        sum += nums[right];
-
-        if (sum >= target) {
-            while (sum >= target) {
-                const length = right - left + 1;
-                minLength = Math.min(minLength, length);
-                sum -= nums[left];
-                left++;
-            }
-        }
                 
-        right++;
-    }
+    right++;
+  }
 
-    return minLength === Infinity
-        ? 0
-        : minLength;
+  return minLength === Infinity
+    ? 0
+    : minLength;
 }
 
 const testCases = [
-    [[2, 3, 1, 2, 4, 3], 7, 2],
-    [[1, 1, 1, 1, 1, 3], 11, 0],
-    [[1, 2, 7, 3, 4, 5], 10, 2],
-    [[1, 2, 7, 1, 8], 9, 2],
-    [[1, 3, 4, 5, 2], 12, 3 ],
-    [[7, 2, 4, 6, 5, 8], 6, 1 ],
-    [[1,2,3,4], 10, 4], 
+  [[2, 3, 1, 2, 4, 3], 7, 2],
+  [[1, 1, 1, 1, 1, 3], 11, 0],
+  [[1, 2, 7, 3, 4, 5], 10, 2],
+  [[1, 2, 7, 1, 8], 9, 2],
+  [[1, 3, 4, 5, 2], 12, 3 ],
+  [[7, 2, 4, 6, 5, 8], 6, 1 ],
+  [[1,2,3,4], 10, 4], 
 ];
 
 testCases.forEach(([ nums, target, expectedOutput ]) => {
-    const result = findMinLengthSumSubarray(nums, target);
-    const passes = result === expectedOutput;
+  const result = findMinLengthSumSubarray(nums, target);
+  const passes = result === expectedOutput;
 
-    console.log({ nums, target, expectedOutput, result, passes });
+  console.log({ nums, target, expectedOutput, result, passes });
 });

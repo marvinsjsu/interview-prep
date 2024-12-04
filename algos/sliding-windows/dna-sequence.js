@@ -44,100 +44,100 @@
  */ 
 
 function getDNASubsBrute (dna, k) {
-    const subsequences = {};
+  const subsequences = {};
 
-    let i = 0;
-    while (i < dna.length - 2) {
-        const end = i + k;
-        const substr = dna.slice(i, end);
+  let i = 0;
+  while (i < dna.length - 2) {
+    const end = i + k;
+    const substr = dna.slice(i, end);
 
-        if (subsequences[substr]) {
-            subsequences[substr] = subsequences[substr] + 1;
-        } else {
-            subsequences[substr] = 1;
-        }
-        
-        i++;
+    if (subsequences[substr]) {
+      subsequences[substr] = subsequences[substr] + 1;
+    } else {
+      subsequences[substr] = 1;
     }
+        
+    i++;
+  }
 
-    return Object.entries(subsequences)
-        .filter(([_, occurences]) => occurences > 1)
-        .map(([substr, _]) => substr);
+  return Object.entries(subsequences)
+    .filter(([_, occurences]) => occurences > 1)
+    .map(([substr, _]) => substr);
 }
 
 function getDNASubsOptimal (dna, k) {
-    const substrings = new Set();
-    const output = [];
+  const substrings = new Set();
+  const output = [];
 
-    let i = 0;
+  let i = 0;
 
-    while (i <= dna.length - k) {
-        let start = i;
-        let end = start + k;
-        let substr = '';
+  while (i <= dna.length - k) {
+    let start = i;
+    let end = start + k;
+    let substr = '';
 
-        while (start < end) {
-            substr += dna[start];
-            start++;
-        }
-
-        if (!substrings.has(substr)) {
-            substrings.add(substr);
-        } else {
-            output.push(substr);
-        }   
-
-        i++;
+    while (start < end) {
+      substr += dna[start];
+      start++;
     }
 
-    return new Set(output);
+    if (!substrings.has(substr)) {
+      substrings.add(substr);
+    } else {
+      output.push(substr);
+    }   
+
+    i++;
+  }
+
+  return new Set(output);
 }
 
 
 function getDNASubsBrute2 (dna, k) {
-    if (k > dna.length) {
-        return [];
+  if (k > dna.length) {
+    return [];
+  }
+
+  const subs = [];
+  const map = new Map();
+
+  let start = 0;
+
+  while (start <= dna.length - k) {
+    const end = start + k;
+    const subStr = dna.slice(start, end);
+
+    if (map.has(subStr)) {
+      subs.push(subStr);
+    } else {
+      map.set(subStr, 1);
     }
 
-    const subs = [];
-    const map = new Map();
+    start++;
+  }
 
-    let start = 0;
-
-    while (start <= dna.length - k) {
-        const end = start + k;
-        const subStr = dna.slice(start, end);
-
-        if (map.has(subStr)) {
-            subs.push(subStr);
-        } else {
-            map.set(subStr, 1);
-        }
-
-        start++;
-    }
-
-    return subs;
+  return subs;
 }
 
 
 const testCases = [
-    ["GAGTCACAGTAGTTTCA", 3, ["AGT", "TCA"]],
-    ["CAAACCCCGTAAACCCCA", 7, ["AAACCCC"]],
+  ['GAGTCACAGTAGTTTCA', 3, ['AGT', 'TCA']],
+  ['CAAACCCCGTAAACCCCA', 7, ['AAACCCC']],
 ];
 
 testCases.forEach(([dna, k, expectedOutput]) => {
-    // const result = getDNASubsBrute(dna, k);
-    // const result = getDNASubsOptimal(dna, k);
-    const result = getDNASubsBrute2(dna, k);
+  // const result = getDNASubsBrute(dna, k);
+  // const result = getDNASubsOptimal(dna, k);
+  const result = getDNASubsBrute2(dna, k);
     
-    let isEqual = true;
+  let isEqual = true;
 
-    expectedOutput.forEach(expected => {
-        if (Array.isArray(result) && !result.includes(expected)) {
-            isEqual = false;
-        }
-    });
+  expectedOutput.forEach(expected => {
+    if (Array.isArray(result) && !result.includes(expected)) {
+      isEqual = false;
+    }
+  });
 
-    console.log({ dna, k, expectedOutput, result, isEqual });
+  console.log({ dna, k, expectedOutput, result, isEqual });
 });

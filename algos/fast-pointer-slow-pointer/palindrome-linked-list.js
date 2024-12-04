@@ -47,102 +47,102 @@
 const LinkedList = require('../libs/linked-list');
 
 function reverseLinkedList (head) {
-    let prev = null;
-    let follow = null;
-    let curr = head;
+  let prev = null;
+  let follow = null;
+  let curr = head;
 
-    while (curr) {
-        follow = curr.next;
-        curr.next = prev;
-        prev = curr;
-        curr = follow;
-    }
+  while (curr) {
+    follow = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = follow;
+  }
 
-    return prev;
+  return prev;
 }
 
 function isPalindromeLinkedListBrute (head) {
-    const nodes = [];
+  const nodes = [];
 
-    let curr = head;
+  let curr = head;
 
-    while (curr) {
-        nodes.push(curr.data);
-        curr = curr.next;
-    }
+  while (curr) {
+    nodes.push(curr.data);
+    curr = curr.next;
+  }
 
-    const linkedListCopy = new LinkedList();
-    linkedListCopy.from(nodes);
+  const linkedListCopy = new LinkedList();
+  linkedListCopy.from(nodes);
     
-    const reversedLinkedListCopyHead = reverseLinkedList(linkedListCopy.head);
+  const reversedLinkedListCopyHead = reverseLinkedList(linkedListCopy.head);
 
-    let currOriginalLinkedList = head;
-    let currReversedCopyLinkedList = reversedLinkedListCopyHead;
+  let currOriginalLinkedList = head;
+  let currReversedCopyLinkedList = reversedLinkedListCopyHead;
 
-    while (currOriginalLinkedList && currReversedCopyLinkedList) {
-        if (currOriginalLinkedList.data !== currReversedCopyLinkedList.data) {
-            return false;
-        }
-        currOriginalLinkedList = currOriginalLinkedList.next;
-        currReversedCopyLinkedList = currReversedCopyLinkedList.next;
+  while (currOriginalLinkedList && currReversedCopyLinkedList) {
+    if (currOriginalLinkedList.data !== currReversedCopyLinkedList.data) {
+      return false;
     }
+    currOriginalLinkedList = currOriginalLinkedList.next;
+    currReversedCopyLinkedList = currReversedCopyLinkedList.next;
+  }
 
-    if (currReversedCopyLinkedList?.next || currOriginalLinkedList?.next) {
-        return false;
-    }
+  if (currReversedCopyLinkedList?.next || currOriginalLinkedList?.next) {
+    return false;
+  }
 
-    return true;
+  return true;
 }
 
 
 function isPalindromeLinkedListOptimal (head) {
-    let slow = head;
-    let fast = head;
+  let slow = head;
+  let fast = head;
 
-    while (fast && fast.next) {
-        slow = slow.next;
-        fast = fast.next.next;
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  let midHead = slow;
+  let reversedHead = reverseLinkedList(midHead);
+
+  let curr = head;
+  let currReversed = reversedHead;
+
+  while (curr && currReversed) {
+    if (curr.data !== currReversed.data) {
+      return false;
     }
 
-    let midHead = slow;
-    let reversedHead = reverseLinkedList(midHead);
+    curr = curr.next;
+    currReversed = currReversed.next;
+  }
 
-    let curr = head;
-    let currReversed = reversedHead;
+  if (curr?.next || currReversed?.next) {
+    return false;
+  }
 
-    while (curr && currReversed) {
-        if (curr.data !== currReversed.data) {
-            return false;
-        }
-
-        curr = curr.next;
-        currReversed = currReversed.next;
-    }
-
-    if (curr?.next || currReversed?.next) {
-        return false;
-    }
-
-    return true;
+  return true;
 }
 
 
 const testCases = [
-    [[1, 2, 3, 4, 5], false],
-    [[2, 4, 6, 2], false],
-    [[0, 3, 5, 5, 0], false],
-    [[9, 7, 4, 4, 7, 9], true],
-    [[7, 3, 3, 3, 7], true],
+  [[1, 2, 3, 4, 5], false],
+  [[2, 4, 6, 2], false],
+  [[0, 3, 5, 5, 0], false],
+  [[9, 7, 4, 4, 7, 9], true],
+  [[7, 3, 3, 3, 7], true],
 ];
 
 testCases.forEach(([nodes, expectedOutput]) => {
-    const ll = new LinkedList();
-    ll.from(nodes);
+  const ll = new LinkedList();
+  ll.from(nodes);
 
-    // const result = isPalindromeLinkedListBrute(ll.head);
-    const result = isPalindromeLinkedListOptimal(ll.head);
+  // const result = isPalindromeLinkedListBrute(ll.head);
+  const result = isPalindromeLinkedListOptimal(ll.head);
 
-    const isMatch = expectedOutput === result;
+  const isMatch = expectedOutput === result;
 
-    console.log({ nodes, expectedOutput, result, isMatch });
+  console.log({ nodes, expectedOutput, result, isMatch });
 });

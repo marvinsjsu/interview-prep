@@ -29,56 +29,56 @@
  * 
  */
 
-[0, 1, 2, 3, 4], target = 9
+[0, 1, 2, 3, 4], target = 9;
 
 function findIndicesOfThreeSum (nums, target) {
-    if (nums.length < 3) {
-        return [null, null, null];
-    }
-
-    for (let i = 0; i < nums.length - 2; i++) {
-        let ptr1 = i;
-        let ptr2 = i + 1;
-        let ptr3 = nums.length - 1;
-    
-        while (ptr2 < ptr3) {
-            const sum = nums[ptr1] + nums[ptr2] + nums[ptr3];
-            
-            if (sum === target) {
-                return [ptr1, ptr2, ptr3];
-            } else if (sum < target) {
-                ptr2++;
-            } else {
-                ptr3--;
-            }
-        }
-    }
-
+  if (nums.length < 3) {
     return [null, null, null];
+  }
+
+  for (let i = 0; i < nums.length - 2; i++) {
+    let ptr1 = i;
+    let ptr2 = i + 1;
+    let ptr3 = nums.length - 1;
+    
+    while (ptr2 < ptr3) {
+      const sum = nums[ptr1] + nums[ptr2] + nums[ptr3];
+            
+      if (sum === target) {
+        return [ptr1, ptr2, ptr3];
+      } else if (sum < target) {
+        ptr2++;
+      } else {
+        ptr3--;
+      }
+    }
+  }
+
+  return [null, null, null];
 }
 
 
 const testValues = [
-    [[[1, 1, 2, 18], 20], [0, 1, 18]],
-    [[[12, 15, 30, 90, 120], 165], [1, 2, 4]],
-    [[[], 20], [null, null, null]],
-    [[[1, 2], 20], [null, null, null]],
-    [[[1, 2, 2, 4], 20], [null, null, null]],
-    [[[1, 2, 3], 'a'], [null, null, null]],
+  [[[1, 1, 2, 18], 20], [0, 1, 18]],
+  [[[12, 15, 30, 90, 120], 165], [1, 2, 4]],
+  [[[], 20], [null, null, null]],
+  [[[1, 2], 20], [null, null, null]],
+  [[[1, 2, 2, 4], 20], [null, null, null]],
+  [[[1, 2, 3], 'a'], [null, null, null]],
 ];
 
 
 testValues.forEach(([input, expectedOutput]) => {
-    const [nums, target] = input;
-    const result = findIndicesOfThreeSum(nums, target);
+  const [nums, target] = input;
+  const result = findIndicesOfThreeSum(nums, target);
 
-    let matches = true;
-    result.forEach((val, index) => {
-        if (val !== expectedOutput[index]) {
-            matches = false;
-        }
-    });
+  let matches = true;
+  result.forEach((val, index) => {
+    if (val !== expectedOutput[index]) {
+      matches = false;
+    }
+  });
 
-    console.log({ nums, target, result, expectedOutput, matches });
+  console.log({ nums, target, result, expectedOutput, matches });
 });
 

@@ -33,44 +33,44 @@
  */
 
 function findSumIndices(nums, target) {
-    if (nums.length === 0 || nums.length === 1) {
-        return [null, null];
-    }
-
-    if (!Number.isInteger(target)) {
-        return [null, null];
-    }
-
-    let ptr1 = 0;
-    let ptr2 = nums.length - 1;
-
-    while (ptr1 < ptr2) {
-        const sum = nums[ptr1] + nums[ptr2];
-
-        if (sum === target) {
-            return [ptr1, ptr2];
-        } else if (sum < target) {
-            ptr1++;
-        } else {
-            ptr2--;
-        }
-    }
-
+  if (nums.length === 0 || nums.length === 1) {
     return [null, null];
+  }
+
+  if (!Number.isInteger(target)) {
+    return [null, null];
+  }
+
+  let ptr1 = 0;
+  let ptr2 = nums.length - 1;
+
+  while (ptr1 < ptr2) {
+    const sum = nums[ptr1] + nums[ptr2];
+
+    if (sum === target) {
+      return [ptr1, ptr2];
+    } else if (sum < target) {
+      ptr1++;
+    } else {
+      ptr2--;
+    }
+  }
+
+  return [null, null];
 }
 
 const testValues = [
-    [[2, 3, 4, 5, 6, 7, 8], 10],
-    [[1, 5, 10, 15, 19], 20],
-    [[], 10],
-    [[1], 1],
-    [[1, 2], 2],
-    [[1, 2, 3, 17], 20],
-    [[1, 2, 3, 4], 'a'],
+  [[2, 3, 4, 5, 6, 7, 8], 10],
+  [[1, 5, 10, 15, 19], 20],
+  [[], 10],
+  [[1], 1],
+  [[1, 2], 2],
+  [[1, 2, 3, 17], 20],
+  [[1, 2, 3, 4], 'a'],
 ];
 
 testValues.forEach(([ nums, target ]) => {
-    const indices = findSumIndices(nums, target);
-    console.log({ nums, target }, { indices });
+  const indices = findSumIndices(nums, target);
+  console.log({ nums, target }, { indices });
 });
 

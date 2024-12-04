@@ -22,30 +22,30 @@
  */
 
 function reverseArray(nums) {
-    if (nums.length === 0) {
-        return nums;
-    }
-
-    let ptr1 = 0;
-    let ptr2 = nums.length - 1;
-
-    while (ptr1 < ptr2) {
-        const temp = nums[ptr1];
-        nums[ptr1] = nums[ptr2];
-        nums[ptr2] = temp;
-
-        ptr1++;
-        ptr2--;
-    }
-
+  if (nums.length === 0) {
     return nums;
+  }
+
+  let ptr1 = 0;
+  let ptr2 = nums.length - 1;
+
+  while (ptr1 < ptr2) {
+    const temp = nums[ptr1];
+    nums[ptr1] = nums[ptr2];
+    nums[ptr2] = temp;
+
+    ptr1++;
+    ptr2--;
+  }
+
+  return nums;
 }
 
 const testNumArrs = [
-    [1, 2, 3, 4, 5, 6],
-    [10, 20, 30, 40, 50, 60],
+  [1, 2, 3, 4, 5, 6],
+  [10, 20, 30, 40, 50, 60],
 ];
 
 testNumArrs.forEach(nums => {
-    console.log(`Before reversing: ${nums} -- After reversing: ${reverseArray(nums)}`);
+  console.log(`Before reversing: ${nums} -- After reversing: ${reverseArray(nums)}`);
 });
